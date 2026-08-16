@@ -1,0 +1,9 @@
+streamlit
+chromadb
+mlx
+mlx-embeddings
+openai
+pillow
+pillow-heif
+pydantic
+loguru

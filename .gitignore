@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/photos.db
+data/chroma/
+.streamlit/secrets.toml
