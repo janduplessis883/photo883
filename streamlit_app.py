@@ -1,6 +1,9 @@
 import streamlit as st
 
 from photo_ai.database import initialize_database
+from photo_ai.logging_config import setup_logging
+
+setup_logging()
 
 st.set_page_config(
     page_title="Photo883",

@@ -67,3 +67,12 @@ def query_embeddings(vector: list[float], limit: int = 24) -> list[dict[str, Any
             }
         )
     return matches
+
+
+def delete_embeddings(photo_id: int, embedding_ids: list[str | None] | None = None) -> None:
+    collection = get_collection()
+    ids = [embedding_id for embedding_id in (embedding_ids or []) if embedding_id]
+    if not ids:
+        ids = [f"photo:{photo_id}:text"]
+    collection.delete(ids=ids)
+    logger.info("embedding deleted: {}", ids)

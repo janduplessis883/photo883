@@ -207,6 +207,13 @@ def get_photo(photo_id: int) -> PhotoRecord | None:
     return _row_to_record(row) if row else None
 
 
+def delete_photo(photo_id: int) -> None:
+    initialize_database()
+    with get_connection() as connection:
+        connection.execute("DELETE FROM photos WHERE id = ?", (photo_id,))
+    logger.info("database delete: {}", photo_id)
+
+
 def list_photos(
     folder: str | None = None,
     tag: str | None = None,
@@ -241,6 +248,26 @@ def list_photos(
             LIMIT ?
             """,
             params,
+        ).fetchall()
+    return [_row_to_record(row) for row in rows]
+
+
+def list_duplicate_photos(limit: int = 500) -> list[PhotoRecord]:
+    initialize_database()
+    with get_connection() as connection:
+        rows = connection.execute(
+            """
+            SELECT * FROM photos
+            WHERE file_hash IN (
+                SELECT file_hash
+                FROM photos
+                GROUP BY file_hash
+                HAVING COUNT(*) > 1
+            )
+            ORDER BY file_hash, filename
+            LIMIT ?
+            """,
+            (limit,),
         ).fetchall()
     return [_row_to_record(row) for row in rows]
 

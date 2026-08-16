@@ -7,6 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 SQLITE_PATH = DATA_DIR / "photos.db"
 CHROMA_DIR = DATA_DIR / "chroma"
+LOG_DIR = DATA_DIR / "logs"
+LOG_FILE = LOG_DIR / "photo883.log"
 
 OPENAI_COMPAT_BASE_URL = os.getenv("OPENAI_COMPAT_BASE_URL", "http://127.0.0.1:8000/v1")
 OPENAI_COMPAT_API_KEY = os.getenv("OPENAI_COMPAT_API_KEY", "12345")

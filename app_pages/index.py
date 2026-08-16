@@ -29,10 +29,10 @@ if scan:
 if index:
     progress_bar = st.progress(0)
     status = st.status("Indexing photos", expanded=True)
-    log_slot = st.empty()
     messages: list[str] = []
 
     with status:
+        log_slot = st.empty()
         for event in index_directory(root, force=force):
             if event.total:
                 progress_bar.progress(event.current / event.total)
